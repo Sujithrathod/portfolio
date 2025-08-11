@@ -32,7 +32,7 @@ function AboutSection() {
         <section id="about" className="py-16">
             <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">About</h2>
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                I'm passionate about building interactive, scalable digital experiences using tools like React and Node.js. With a curiosity-driven, hands-on mindset, I love turning ideas into functional products. I'm also exploring emerging technologies like Solana and Web3, constantly expanding my skills to create innovative, real-world solutions.
+                I'm passionate about building interactive, scalable digital experiences using tools like React and Node.js. With a curiosity-driven, hands-on mindset, I love turning ideas into functional products. I'm also exploring emerging technologies like AI, machine learning, and deep learning.
             </p>
         </section>
     )
