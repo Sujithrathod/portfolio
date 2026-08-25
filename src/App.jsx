@@ -1,10 +1,12 @@
 import './App.css'
 import Nav from './components/Nav'
 import Home from './components/Home'
+import Background from './components/Background'
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-black text-gray-800 dark:text-white transition-colors duration-300">
+    <div className="relative min-h-screen overflow-x-clip">
+      <Background />
       <Nav/>
       <Home/>
     </div>

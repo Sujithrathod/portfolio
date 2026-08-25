@@ -22,3 +22,28 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Environment / secrets — never commit these
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Build output & caches
+.vite/
+.cache/
+coverage/
+*.tsbuildinfo
+
+# Deployment platform caches
+.vercel
+.netlify
+
+# Local tooling
+.claude/
+.eslintcache
+
+# OS noise
+Thumbs.db
+.DS_Store?
