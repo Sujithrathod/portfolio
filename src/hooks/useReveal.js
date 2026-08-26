@@ -28,6 +28,31 @@ export default function useReveal() {
         );
         root.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
 
+        // Hovering a card keeps only that card sharp; the rest of the stack blurs back.
+        let unbindHover;
+        if (window.matchMedia('(hover: hover)').matches) {
+            const cards = [...root.querySelectorAll('.card')];
+
+            const clear = () => cards.forEach((card) => card.classList.remove('card-dim'));
+            const focusOn = (index) =>
+                cards.forEach((card, i) => card.classList.toggle('card-dim', i !== index));
+
+            const onMove = (event) => {
+                const card = event.target.closest?.('.card');
+                const index = card ? cards.indexOf(card) : -1;
+                if (index === -1) clear();
+                else focusOn(index);
+            };
+
+            root.addEventListener('mouseover', onMove);
+            root.addEventListener('mouseleave', clear);
+            unbindHover = () => {
+                root.removeEventListener('mouseover', onMove);
+                root.removeEventListener('mouseleave', clear);
+                clear();
+            };
+        }
+
         // Hover can't happen on touch, so proximity to the viewport centre stands in for it.
         let focusObserver;
         if (window.matchMedia(COARSE).matches) {
@@ -45,6 +70,7 @@ export default function useReveal() {
         return () => {
             revealObserver.disconnect();
             focusObserver?.disconnect();
+            unbindHover?.();
         };
     }, []);
 

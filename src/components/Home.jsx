@@ -70,17 +70,17 @@ function IntroRail() {
     return (
         <header
             id="home"
-            className="lg:w-[44%] lg:sticky lg:top-0 lg:h-screen flex flex-col justify-center pt-24 lg:pt-0 pb-12 lg:pb-0 text-center lg:text-left"
+            className="lg:w-[44%] lg:sticky lg:top-0 lg:h-screen flex flex-col justify-start lg:justify-center pt-24 lg:pt-0 pb-12 lg:pb-0 text-center lg:text-left"
         >
             <div className="reveal flex flex-col items-center lg:items-start">
                 <div className="relative float">
                     <div className="avatar-glow" />
-                    <div className="avatar-ring w-36 h-36 lg:w-44 lg:h-44">
+                    <div className="avatar-ring w-40 h-40 lg:w-[238px] lg:h-[238px]">
                         <img
                             src={profileImage}
                             alt="Sujith Rathod"
-                            width="176"
-                            height="176"
+                            width="230"
+                            height="230"
                             className="w-full h-full rounded-full object-cover"
                             style={{ background: 'var(--bg-secondary)' }}
                         />
@@ -96,7 +96,7 @@ function IntroRail() {
                 </p>
 
                 <p className="mt-5 max-w-md leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                    Building clean, scalable web apps using Typescript, React, and Next — focused on real-world problem solving.
+                    Building clean, scalable web apps using Javascript, React, and Node — focused on real-world problem solving.
                 </p>
 
                 <div className="mt-6 inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-medium border"
@@ -187,11 +187,8 @@ function ExperienceSection() {
             <div className="space-y-6">
                 {EXPERIENCE.map((job) => (
                     <div key={job.company} className="card">
-                        <div className="flex flex-wrap items-start justify-between gap-2 mb-1">
-                            <h3 className="text-lg font-semibold">
-                                {job.role} ·{" "}
-                                <span style={{ color: 'var(--text-secondary)' }}>{job.company}</span>
-                            </h3>
+                        <div className="flex flex-wrap items-center justify-between gap-2">
+                            <h3 className="text-xl font-bold tracking-tight">{job.company}</h3>
                             <span
                                 className="text-xs font-semibold rounded-full px-3 py-1 whitespace-nowrap"
                                 style={{ background: 'var(--accent-faint)', color: 'var(--text-primary)' }}
@@ -199,6 +196,9 @@ function ExperienceSection() {
                                 {job.period}
                             </span>
                         </div>
+                        <p className="text-sm font-medium mt-1" style={{ color: 'var(--text-secondary)' }}>
+                            {job.role}
+                        </p>
 
                         <ul className="mt-4 space-y-3">
                             {job.points.map((point) => (
@@ -324,6 +324,20 @@ const PROJECTS = [
             "pandas", "NumPy", "FastAPI", "Streamlit", "Docker",
         ],
     },
+    {
+        title: "MovieMate",
+        tagline: "Smart movie recommendations from a title you already like",
+        link: "https://github.com/Sujithrathod/MovieMate-Smart-Movie-Recommendations",
+        demo: "https://moviemate-web.streamlit.app/",
+        points: [
+            "Pick any film from roughly 5,000 titles and get the five closest matches, each shown with its poster, rating, runtime and plot summary pulled live from the TMDB API.",
+            "Content based rather than crowd based, so it needs no ratings history to work. Plot, genre, cast, crew and keywords are vectorised into one profile per film, and cosine similarity ranks the neighbours.",
+        ],
+        tech: [
+            "Python", "scikit-learn", "NLTK", "pandas",
+            "Streamlit", "TMDB API", "Jupyter",
+        ],
+    },
 ];
 
 function ProjectsSection() {
@@ -335,7 +349,7 @@ function ProjectsSection() {
                     Check out my <span className="gradient-text">latest work</span>
                 </h2>
                 <p style={{ color: 'var(--text-secondary)' }}>
-A flagship I built end to end, and a small tool that does one thing with no friction.
+A flagship I built end to end, plus a few smaller tools that each do one thing with no friction.
                 </p>
             </div>
 
