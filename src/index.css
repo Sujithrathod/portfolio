@@ -459,3 +459,54 @@ a, button, span, img, div[class*="card"] {
 @media (prefers-reduced-motion: reduce) {
   .card-dim { filter: none; opacity: 0.6; }
 }
+
+/* Softer blur on phones: the effect is scroll-driven there, so it is on screen
+   constantly and a lighter radius keeps scrolling smooth. */
+@media (hover: none) {
+  .card-dim { filter: blur(2px); opacity: 0.5; }
+}
+
+/* ---------- Certifications ---------- */
+.cert-card { padding: 1.15rem 1.25rem; }
+
+.cert-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+  border-radius: 0.75rem;
+  color: var(--bg-primary);
+  background: var(--accent);
+}
+
+.cert-open {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  flex-shrink: 0;
+  border-radius: 999px;
+  padding: 0.28rem 0.65rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--accent-faint);
+  border: 1px solid var(--card-border);
+}
+a:hover .cert-open {
+  color: var(--text-primary);
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+/* ---------- Contact links ---------- */
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+.contact-link:hover { color: var(--text-primary); }
+.contact-link:active { transform: scale(0.97); }

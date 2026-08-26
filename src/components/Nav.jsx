@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 
-const SECTIONS = ['home', 'about', 'experience', 'education', 'projects', 'skills'];
+const SECTIONS = ['home', 'about', 'experience', 'education', 'projects', 'skills', 'certifications'];
 const MOBILE_SECTIONS = SECTIONS.slice(1);
 
 const SOCIALS = [
@@ -75,7 +75,12 @@ export default function Nav() {
         }
     }, [activeSection]);
 
+    // #home is the sticky rail, so it is always "in view" and scrollIntoView
+    // does nothing there. Going home means going to the top of the page.
+    const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
     const scrollToSection = (sectionId) => {
+        if (sectionId === 'home') return scrollToTop();
         const element = document.getElementById(sectionId);
         if (element) element.scrollIntoView({ behavior: 'smooth' });
     };

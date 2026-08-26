@@ -5,8 +5,8 @@ const COARSE = '(hover: none), (pointer: coarse)';
 /**
  * Scroll choreography for the page:
  *  - reveals every `.reveal` once it scrolls into view
- *  - on touch devices, marks the `.card` sitting in the middle of the viewport
- *    with `is-visible`'s sibling class `in-view`, standing in for hover
+ *  - keeps one card in focus and blurs the rest: hover picks the card on a
+ *    mouse, scroll position picks it on touch, where there is no hover
  */
 export default function useReveal() {
     const ref = useRef(null);
@@ -28,49 +28,76 @@ export default function useReveal() {
         );
         root.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
 
-        // Hovering a card keeps only that card sharp; the rest of the stack blurs back.
-        let unbindHover;
-        if (window.matchMedia('(hover: hover)').matches) {
-            const cards = [...root.querySelectorAll('.card')];
+        const cards = [...root.querySelectorAll('.card')];
+        const clear = () =>
+            cards.forEach((card) => card.classList.remove('card-dim', 'in-view'));
+        const focusOn = (target) =>
+            cards.forEach((card) => {
+                const active = card === target;
+                card.classList.toggle('in-view', active);
+                card.classList.toggle('card-dim', !active);
+            });
 
-            const clear = () => cards.forEach((card) => card.classList.remove('card-dim'));
-            const focusOn = (index) =>
-                cards.forEach((card, i) => card.classList.toggle('card-dim', i !== index));
+        let unbind;
 
+        if (window.matchMedia(COARSE).matches) {
+            // No hover on touch, so the card nearest the middle of the screen takes focus.
+            let frame = 0;
+            const update = () => {
+                frame = 0;
+                const middle = window.innerHeight / 2;
+                let nearest = null;
+                let best = Infinity;
+
+                cards.forEach((card) => {
+                    const rect = card.getBoundingClientRect();
+                    if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+                    const distance = Math.abs(rect.top + rect.height / 2 - middle);
+                    if (distance < best) {
+                        best = distance;
+                        nearest = card;
+                    }
+                });
+
+                if (nearest) focusOn(nearest);
+                else clear();
+            };
+
+            const schedule = () => {
+                if (!frame) frame = requestAnimationFrame(update);
+            };
+
+            window.addEventListener('scroll', schedule, { passive: true });
+            window.addEventListener('resize', schedule, { passive: true });
+            schedule();
+
+            unbind = () => {
+                window.removeEventListener('scroll', schedule);
+                window.removeEventListener('resize', schedule);
+                if (frame) cancelAnimationFrame(frame);
+                clear();
+            };
+        } else {
+            // Pointer devices: the hovered card is the one in focus.
             const onMove = (event) => {
                 const card = event.target.closest?.('.card');
-                const index = card ? cards.indexOf(card) : -1;
-                if (index === -1) clear();
-                else focusOn(index);
+                if (card && cards.includes(card)) focusOn(card);
+                else clear();
             };
 
             root.addEventListener('mouseover', onMove);
             root.addEventListener('mouseleave', clear);
-            unbindHover = () => {
+
+            unbind = () => {
                 root.removeEventListener('mouseover', onMove);
                 root.removeEventListener('mouseleave', clear);
                 clear();
             };
         }
 
-        // Hover can't happen on touch, so proximity to the viewport centre stands in for it.
-        let focusObserver;
-        if (window.matchMedia(COARSE).matches) {
-            focusObserver = new IntersectionObserver(
-                (entries) => {
-                    entries.forEach((entry) => {
-                        entry.target.classList.toggle('in-view', entry.isIntersecting);
-                    });
-                },
-                { rootMargin: '-35% 0px -35% 0px' }
-            );
-            root.querySelectorAll('.card').forEach((el) => focusObserver.observe(el));
-        }
-
         return () => {
             revealObserver.disconnect();
-            focusObserver?.disconnect();
-            unbindHover?.();
+            unbind?.();
         };
     }, []);
 
