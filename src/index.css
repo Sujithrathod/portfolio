@@ -510,3 +510,37 @@ a:hover .cert-open {
 }
 .contact-link:hover { color: var(--text-primary); }
 .contact-link:active { transform: scale(0.97); }
+
+/* ---------- Split button: primary action + attached secondary ---------- */
+.btn-split {
+  display: inline-flex;
+  align-items: stretch;
+  border-radius: 999px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(8px);
+  overflow: hidden;
+}
+.btn-split:hover {
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  box-shadow: 0 14px 34px -16px var(--accent);
+}
+.btn-split__main,
+.btn-split__icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.btn-split__main { padding: 0.7rem 1.1rem 0.7rem 1.35rem; }
+.btn-split__icon { padding: 0.7rem 1.1rem; }
+.btn-split__main:hover,
+.btn-split__icon:hover { background: var(--accent-faint); }
+.btn-split__main:active,
+.btn-split__icon:active { transform: scale(0.96); }
+.btn-split__rule {
+  width: 1px;
+  align-self: stretch;
+  background: var(--card-border);
+}
