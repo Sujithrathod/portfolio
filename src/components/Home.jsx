@@ -258,7 +258,7 @@ function EducationSection() {
                         className="inline-block mt-3 text-xs font-semibold rounded-full px-3 py-1"
                         style={{ background: 'var(--accent-faint)', color: 'var(--text-primary)' }}
                     >
-                        9.1 / 10 CGPA
+                        9.2 / 10 CGPA
                     </span>
                 </div>
             </div>
@@ -268,39 +268,19 @@ function EducationSection() {
 
 const CERTIFICATIONS = [
     {
-        title: "Optimization with Python: Solve Operations Research Problems",
-        instructor: "Rafael Silva Pinto",
-        file: "/certificates/optimization-with-python.pdf",
-    },
-    {
         title: "Snowflake: The Complete Masterclass",
         instructor: "Nikolai Schuler",
         file: "/certificates/snowflake-masterclass.pdf",
     },
     {
+        title: "Optimization with Python: Solve Operations Research Problems",
+        instructor: "Rafael Silva Pinto",
+        file: "/certificates/optimization-with-python.pdf",
+    },
+    {
         title: "The Complete SQL Bootcamp: Go from Zero to Hero",
         instructor: "Jose Portilla, Pierian Training",
         file: "/certificates/complete-sql-bootcamp.pdf",
-    },
-    {
-        title: "Data Engineering 101: The Beginner's Guide",
-        instructor: "Seungchan Lee, Nami Kim, DeepIntuitions AI",
-        file: "/certificates/data-engineering-101.pdf",
-    },
-    {
-        title: "Business Communication Skills: Handling Clients & Customers",
-        instructor: "Viktoriya Maya",
-        file: "/certificates/business-communication-skills.pdf",
-    },
-    {
-        title: "Generative AI for Beginners",
-        instructor: "Aakriti E-Learning Academy",
-        file: "/certificates/generative-ai-for-beginners.pdf",
-    },
-    {
-        title: "Learn Python Programming: Beginner to Master",
-        instructor: "Abdul Bari",
-        file: "/certificates/learn-python-programming.pdf",
     },
 ];
 
@@ -310,7 +290,7 @@ function CertificationsSection() {
             <span className="eyebrow">06 — Certifications</span>
             <h2 className="text-3xl font-bold mt-3 mb-4">What I've completed</h2>
             <p className="mb-8" style={{ color: 'var(--text-secondary)' }}>
-                Udemy courses, all finished end to end. Open any one to read the certificate.
+The courses behind the data and optimization work above. Open any one to read the certificate.
             </p>
 
             <div className="space-y-4">

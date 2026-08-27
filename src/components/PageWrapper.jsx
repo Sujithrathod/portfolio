@@ -16,7 +16,7 @@ function Footer() {
             />
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-16 text-center text-sm" style={{ color: 'var(--text-secondary)' }}>
                 <p>
-                    © {new Date().getFullYear()} Sujith — built with{" "}
+                    Built with{" "}
                     <span style={{ color: 'var(--text-primary)' }}>React</span> &{" "}
                     <span style={{ color: 'var(--text-primary)' }}>Tailwind</span>.
                 </p>
